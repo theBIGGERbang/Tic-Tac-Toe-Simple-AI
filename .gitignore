@@ -1,62 +1,250 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*,cover
-.hypothesis/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-#Ipython Notebook
-.ipynb_checkpoints
+from random import randint as rand
+board=[[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
+'''
+ ___\n
+|123|\n
+|456|\n
+|789|\n
+ ---
+'''
+def drawboard():
+    s1=board[0][0]
+    s2=board[0][1]
+    s3=board[0][2]
+    s4=board[1][0]
+    s5=board[1][1]
+    s6=board[1][2]
+    s7=board[2][0]
+    s8=board[2][1]
+    s9=board[2][2]
+    print(' ___\n|'+s1+s2+s3+'|\n|'+s4+s5+s6+'|\n|'+s7+s8+s9+'|\n ---')
+drawboard()
+turn=1
+#1=player
+#2=computer
+def clear():
+    for n in range(39):
+        print()
+def compcheck(char):
+    global compchoicex
+    global compchoicey
+    compchoicex=5
+    compchoicey=5
+    if board[0][0]=='O' and board[0][1] == ' ' and board[0][2]== 'O':
+        compchoicex=2
+        compchoicey=0
+    elif board[0][0]==' ' and board[0][1] == 'O' and board[0][2]== 'O':
+        compchoicex=0
+        compchoicey=0
+    elif board[0][0]=='O' and board[0][1] == 'O' and board[0][2]== ' ':
+        compchoicex=2
+        compchoicey=0
+    elif board[1][0]=='O' and board[1][1] == ' ' and board[1][2]== 'O':
+        compchoicex=1
+        compchoicey=1
+    elif board[1][0]==' ' and board[1][1] == 'O' and board[1][2]== 'O':
+        compchoicex=0
+        compchoicey=1
+    elif board[1][0]=='O' and board[1][1] == 'O' and board[1][2]== ' ':
+        compchoicex=2
+        compchoicey=1
+    elif board[2][0]=='O' and board[2][1] == ' ' and board[2][2]== 'O':
+        compchoicex=1
+        compchoicey=2
+    elif board[2][0]==' ' and board[2][1] == 'O' and board[2][2]== 'O':
+        compchoicex=0
+        compchoicey=2
+    elif board[2][0]=='O' and board[2][1] == 'O' and board[2][2]== ' ':
+        compchoicex=2
+        compchoicey=2
+    elif board[0][0]=='O' and board[1][1] == ' ' and board[2][2]== 'O':
+        compchoicex=1
+        compchoicey=1
+    elif board[0][0]==' ' and board[1][1] == 'O' and board[2][2]== 'O':
+        compchoicex=0
+        compchoicey=0
+    elif board[0][0]=='O' and board[1][1] == 'O' and board[2][2]== ' ':
+        compchoicex=2
+        compchoicey=2
+    elif board[0][2]=='O' and board[1][1] == ' ' and board[2][0]== 'O':
+        compchoicex=1
+        compchoicey=1
+    elif board[0][2]==' ' and board[1][1] == 'O' and board[2][0]== 'O':
+        compchoicex=2
+        compchoicey=0
+    elif board[0][2]=='O' and board[1][1] == 'O' and board[2][0]== ' ':
+        compchoicex=0
+        compchoicey=2
+    elif board[0][0]=='O' and board[1][0] == ' ' and board[2][0]== 'O':
+        compchoicex=0
+        compchoicey=1
+    elif board[0][0]==' ' and board[1][0] == 'O' and board[2][0]== 'O':
+        compchoicex=0
+        compchoicey=0
+    elif board[0][0]=='O' and board[1][0] == 'O' and board[2][0]== ' ':
+        compchoicex=0
+        compchoicey=2
+    elif board[0][1]=='O' and board[1][1] == ' ' and board[2][1]== 'O':
+        compchoicex=1
+        compchoicey=1
+    elif board[0][1]==' ' and board[1][1] == 'O' and board[2][1]== 'O':
+        compchoicex=1
+        compchoicey=0
+    elif board[0][1]=='O' and board[1][1] == 'O' and board[2][1]== ' ':
+        compchoicex=1
+        compchoicey=2
+    elif board[0][2]=='O' and board[1][2] == ' ' and board[2][2]== 'O':
+        compchoicex=2
+        compchoicey=1
+    elif board[0][2]==' ' and board[1][2] == 'O' and board[2][2]== 'O':
+        compchoicex=2
+        compchoicey=0
+    elif board[0][2]=='O' and board[1][2] == 'O' and board[2][2]== ' ':
+        compchoicex=2
+        compchoicey=2
+    
+    if compchoicex==5 or compchoicey==5:
+        if board[0][0]==char and board[0][1] == ' ' and board[0][2]== char:
+            compchoicex=2
+            compchoicey=0
+        elif board[0][0]==' ' and board[0][1] == char and board[0][2]== char:
+            compchoicex=0
+            compchoicey=0
+        elif board[0][0]==char and board[0][1] == char and board[0][2]== ' ':
+            compchoicex=2
+            compchoicey=0
+        elif board[1][0]==char and board[1][1] == ' ' and board[1][2]== char:
+            compchoicex=1
+            compchoicey=1
+        elif board[1][0]==' ' and board[1][1] == char and board[1][2]== char:
+            compchoicex=0
+            compchoicey=1
+        elif board[1][0]==char and board[1][1] == char and board[1][2]== ' ':
+            compchoicex=2
+            compchoicey=1
+        if board[2][0]==char and board[2][1] == ' ' and board[2][2]== char:
+            compchoicex=1
+            compchoicey=2
+        elif board[2][0]==' ' and board[2][1] == char and board[2][2]== char:
+            compchoicex=0
+            compchoicey=2
+        elif board[2][0]==char and board[2][1] == char and board[2][2]== ' ':
+            compchoicex=2
+            compchoicey=2
+        elif board[0][0]==char and board[1][1] == ' ' and board[2][2]== char:
+            compchoicex=1
+            compchoicey=1
+        elif board[0][0]==' ' and board[1][1] == char and board[2][2]== char:
+            compchoicex=0
+            compchoicey=0
+        elif board[0][0]==char and board[1][1] == char and board[2][2]== ' ':
+            compchoicex=2
+            compchoicey=2
+        elif board[0][2]==char and board[1][1] == ' ' and board[2][0]== char:
+            compchoicex=1
+            compchoicey=1
+        elif board[0][2]==' ' and board[1][1] == char and board[2][0]== char:
+            compchoicex=2
+            compchoicey=0
+        elif board[0][2]==char and board[1][1] == char and board[2][0]== ' ':
+            compchoicex=0
+            compchoicey=2
+        elif board[0][0]==char and board[1][0] == ' ' and board[2][0]== char:
+            compchoicex=0
+            compchoicey=1
+        elif board[0][0]==' ' and board[1][0] == char and board[2][0]== char:
+            compchoicex=0
+            compchoicey=0
+        elif board[0][0]==char and board[1][0] == char and board[2][0]== ' ':
+            compchoicex=0
+            compchoicey=2
+        elif board[0][1]==char and board[1][1] == ' ' and board[2][1]== char:
+            compchoicex=1
+            compchoicey=1
+        elif board[0][1]==' ' and board[1][1] == char and board[2][1]== char:
+            compchoicex=1
+            compchoicey=0
+        elif board[0][1]==char and board[1][1] == char and board[2][1]== ' ':
+            compchoicex=1
+            compchoicey=2
+        elif board[0][2]==char and board[1][2] == ' ' and board[2][2]== char:
+            compchoicex=2
+            compchoicey=1
+        elif board[0][2]==' ' and board[1][2] == char and board[2][2]== char:
+            compchoicex=2
+            compchoicey=0
+        elif board[0][2]==char and board[1][2] == char and board[2][2]== ' ':
+            compchoicex=2
+            compchoicey=2
+    if not compchoicex==5 or not compchoicey==5:
+        board[compchoicey][compchoicex]='O'
+    if compchoicex==5 or compchoicey==5:
+        drawboard()
+        while True:
+            rx=rand(0,2)
+            ry=rand(0,2)
+            if board[ry][rx]==' ':
+                board[ry][rx]='O'
+                drawboard()
+                break
+def tiegame():
+    if ' ' in board[0]==False and ' ' in board[1] and ' ' in board[2]:
+        win=0
+def checkwin(char):
+    if board[0][0]==char and board[0][1] == char and board[0][2]== char:
+        return True
+    if board[1][0]==char and board[1][1] == char and board[1][2]== char:
+        return True
+    if board[2][0]==char and board[2][1] == char and board[2][2]== char:
+        return True
+    if board[0][0]==char and board[1][0] == char and board[2][0]== char:
+        return True
+    if board[0][1]==char and board[1][1] == char and board[2][1]== char:
+        return True
+    if board[0][2]==char and board[1][2] == char and board[2][2]== char:
+        return True
+    if board[0][0]==char and board[1][1] == char and board[2][2]== char:
+        return True
+    if board[0][2]==char and board[1][1] == char and board[2][0]== char:
+        return True
+win=3
+#0=no one
+#1=player
+#2=computer
+while win==3:
+    tiegame()
+    if turn ==1:
+        print('enter a move')
+        xval=int(input('x value: '))-1
+        yval=int(input('y value: '))-1
+        if board[yval][xval]==' ':
+            board[yval][xval]='X'
+            drawboard()
+            turn =2
+            clear()
+            #make computers turn
+            if checkwin('X')==True:
+                win=1
+                clear()
+                tiegame()
+                break
+    elif turn ==2:
+        print('ai thinking')
+        compcheck('X')
+        print (compchoicex)
+        print (compchoicey)
+        if checkwin('O')==True:
+            win=2
+            break
+        clear()
+        drawboard()
+        turn = 1
+clear()
+if win ==1:
+    print('player won!')
+elif win ==2:
+    print('Ouch. Better luck next time!')
+elif win==0:
+    print('tie game')
+drawboard()
+input()
